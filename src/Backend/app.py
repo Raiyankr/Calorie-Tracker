@@ -12,10 +12,20 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 app.config["JWT_SECRET_KEY"] = "1122334455"  # Change this in prod
 jwt = JWTManager(app)
 
-OLLAMA_API_URL = "http://localhost:11434/api/generate"
-MACRO_DATA_FILE = "app/calorie-tracker/src/Backend/macros.json"
-MACRO_HISTORY_DATA_FILE = "app/calorie-tracker/src/Backend/macrosHistory.json"
-USERS_FILE = "app/calorie-tracker/src/Backend/users.json"
+BASE_DIR = os.path.dirname(__file__)
+
+
+# OLLAMA_API_URL = "http://localhost:11434/api/generate"
+
+# MACRO_DATA_FILE = "app/calorie-tracker/src/Backend/macros.json"
+# MACRO_HISTORY_DATA_FILE = "app/calorie-tracker/src/Backend/macrosHistory.json"
+
+
+
+MACRO_DATA_FILE = os.path.join(BASE_DIR, 'macros.json')
+MACRO_HISTORY_DATA_FILE = os.path.join(BASE_DIR, 'macrosHistory.json')
+USERS_FILE = os.path.join(BASE_DIR, 'users.json')
+# USERS_FILE = "app/calorie-tracker/src/Backend/users.json"
 
 # -----------------------------------------------
 # Helper Functions
