@@ -1,0 +1,46 @@
+{
+  "xr@gmail.com": [
+    {
+      "date": "2025-07-20",
+      "calorie": 650.0,
+      "protein": 40.0,
+      "carbs": 80.0,
+      "fat": 30.0
+    },
+    {
+      "date": "2025-07-27",
+      "calorie": 1150.0,
+      "protein": 80.0,
+      "carbs": 140.0,
+      "fat": 55.0
+    },
+    {
+      "date": "2025-07-28",
+      "calorie": 600.0,
+      "protein": 40.0,
+      "carbs": 80.0,
+      "fat": 30.0
+    },
+    {
+      "date": "2025-07-19",
+      "calorie": 8980.0,
+      "protein": 550.0,
+      "carbs": 1050.0,
+      "fat": 425.0
+    },
+    {
+      "date": "2025-07-29",
+      "calorie": 250.0,
+      "protein": 20.0,
+      "carbs": 50.0,
+      "fat": 15.0
+    },
+    {
+      "date": "2025-07-30",
+      "calorie": 2500.0,
+      "protein": 75.0,
+      "carbs": 200.0,
+      "fat": 120.0
+    }
+  ]
+}

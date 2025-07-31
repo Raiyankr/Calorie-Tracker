@@ -1,0 +1,55 @@
+import React, { useEffect, useState } from 'react';
+import { LineChart, CartesianGrid, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+const MacroHistoryChart = ({ token }) => {
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    // Load saved macros on initial load
+    fetch('http://localhost:5050/api/user-history', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error) {
+            setData(data)
+            console.log(data)
+        }})
+      .catch(err => {
+        console.error('Failed to fetch history', err);
+    });
+  }, [token]);
+
+
+  return (
+    <div style={{ width: '100%', height: '300px' }} className="w-full h-96 container">
+      <ResponsiveContainer>
+        <LineChart  data={data}>
+          <XAxis dataKey="date"/>
+          <YAxis/>
+          <Tooltip />
+          <Legend />
+
+          <Line type="monotone" dataKey="calorie" stroke="#6EEB7B" s/>
+          <Line type="monotone" dataKey="protein" stroke="#E1647D" />
+          <Line type="monotone" dataKey="carbs" stroke="#5678DF" />
+          <Line type="monotone" dataKey="fat" stroke="#E98366" />
+        </LineChart>
+      </ResponsiveContainer>
+        {/* <LineChart data={data} width={600} height={300}>
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="calorie" stroke="#ff7f0e" />
+          </LineChart> */}
+
+        
+    </div>
+  );
+};
+
+export default MacroHistoryChart;

@@ -1,0 +1,23 @@
+{
+  "xr@gmail.com": {
+    "date": "2025-07-31",
+    "calorie": 750.0,
+    "protein": 40.0,
+    "carbs": 95.0,
+    "fat": 25.0
+  },
+  "rr": {
+    "date": "2025-07-31",
+    "calorie": 3150.0,
+    "protein": 158.0,
+    "carbs": 445.0,
+    "fat": 122.0
+  },
+  "r1": {
+    "date": "2025-07-31",
+    "calorie": 3050.0,
+    "protein": 149.0,
+    "carbs": 400.0,
+    "fat": 86.0
+  }
+}

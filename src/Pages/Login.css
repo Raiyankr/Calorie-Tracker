@@ -1,0 +1,95 @@
+.background{
+    background: #202027;
+    height: 100%;
+    width: auto;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.text{
+    color: white;
+}
+
+.fieldTable
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(45, 45, 53, 1);
+    padding: 3em;
+    /* padding-left: 10em;
+    padding-right: 10em; */
+    border-radius: 2em;
+}
+
+input{
+    padding: 0.8em;
+    margin: 1em;
+}
+
+.field{
+    display: flex;
+    width: 25em;
+    font-size: 1.2em;
+    border-radius: 1em;
+    border: rgb(0, 0, 0) 2px solid;
+
+    
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(24, 24, 28, 1);
+    padding: 1em;
+    font-size: 2.5em;
+    font-weight: bold;
+    border-radius: 2em;
+}
+
+.submit{
+    margin-top: 1em;
+    padding: 0.5em;
+    width: 90%;
+    border-radius: 2em;
+    border: black 0.1em solid;
+    font-size: 1.3em;
+    font-weight: bold;
+    
+    color: white;
+    background-color: rgba(24, 24, 28, 1);
+    transition: background-color 0.3s ease-in-out;
+}
+.submit:hover{
+    background-color: #58c87d;  
+    color: #ffffff;
+}
+
+.register{
+    color: white;
+    background: none;
+
+    border: none;
+    font-size:1.1em;
+    margin: 1em;
+}
+
+
+form{
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
