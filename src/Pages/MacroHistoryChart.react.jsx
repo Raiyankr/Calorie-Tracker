@@ -6,7 +6,8 @@ const MacroHistoryChart = ({ token }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     // Load saved macros on initial load
-    fetch('http://localhost:5050/api/user-history', {
+    // fetch('http://localhost:5050/api/user-history', {
+    fetch('https://calorie-tracker-xr.up.railway.app/api/user-history', {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -37,17 +38,7 @@ const MacroHistoryChart = ({ token }) => {
           <Line type="monotone" dataKey="carbs" stroke="#5678DF" />
           <Line type="monotone" dataKey="fat" stroke="#E98366" />
         </LineChart>
-      </ResponsiveContainer>
-        {/* <LineChart data={data} width={600} height={300}>
-            <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="calorie" stroke="#ff7f0e" />
-          </LineChart> */}
-
-        
+      </ResponsiveContainer>        
     </div>
   );
 };

@@ -17,6 +17,14 @@ function HomePage({token, logout}) {
     const [macros, setMacros] = useState(null);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.warn("No token found, user may not be logged in");
+          logout(); // or redirect
+          return;
+        }
+        
         // Load saved macros on initial load
         // https://calorie-tracker-xr.up.railway.app/api
         // fetch('http://localhost:5050/api/last-macros', {

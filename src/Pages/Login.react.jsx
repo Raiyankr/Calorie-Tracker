@@ -17,9 +17,10 @@ const Login = ({ setToken }) => {
 
     const data = await res.json();
     if (res.ok) {
-      setToken(data.access_token); // Save token in parent
+        localStorage.setItem("token", data.access_token);
+        setToken(data.access_token); // Save token in parent
     } else {
-      alert(data.error || 'Login failed');
+        alert(data.error || 'Login failed');
     }
   };
 
@@ -36,6 +37,8 @@ const Login = ({ setToken }) => {
     const data = await res.json();
     console.log(data)
     if (res.ok) {
+        localStorage.setItem("token", data.access_token);
+        setToken(data.access_token); // Save token in parent
         alert('Register Success');
     } else {
         alert(data.error || 'Register failed');
