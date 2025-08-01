@@ -112,10 +112,10 @@ def get_saved_macros():
             "protein": macro.protein,
             "carbs": macro.carbs,
             "fat": macro.fat,
-            "TargetCalorie": user.targetCalorie,
-            "TargetProtein": user.targetProtein,
-            "TargetCarbs": user.targetCarbs,
-            "TargetFat": user.targetFat
+            "targetCalorie": user.targetCalorie,
+            "targetProtein": user.targetProtein,
+            "targetCarbs": user.targetCarbs,
+            "targetFat": user.targetFat
         })
     finally:
         session.close()
