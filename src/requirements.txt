@@ -1,0 +1,9 @@
+Flask
+flask_jwt_extended
+flask_cors
+gunicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+requests
+openai

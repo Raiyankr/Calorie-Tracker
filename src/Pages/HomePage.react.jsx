@@ -1,7 +1,5 @@
 import React, { useState, useEffect }  from 'react';
-import '../App.css';
 import './HomePage.css'
-import Login from './Login.react';
 import MacroHistoryChart from './MacroHistoryChart.react'; 
 
 /*import {UpdateCalorie, GetCalorie} from './HomePage.js';*/
