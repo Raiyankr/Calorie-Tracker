@@ -1,1 +1,1 @@
-python app/calorie-tracker/src/app.py
+web: python app/calorie-tracker/src/app.py
