@@ -21,7 +21,7 @@ Base.metadata.create_all(engine)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "https://calorie-tracker-sage.vercel.app"]}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://localhost:50500", "https://calorie-tracker-sage.vercel.app"]}})
 app.config["JWT_SECRET_KEY"] = "1122334455"
 jwt = JWTManager(app)
 
@@ -35,16 +35,24 @@ def register():
         data = request.json
         email = data.get("email")
         password = data.get("password")
+        calorie = data.get("calorie")
+        protein = data.get("protein")
+        carbs = data.get("carbs")
+        fat = data.get("fat")
 
         if not email:
             return jsonify({"error": "Enter Email"}), 410
         if not password:
             return jsonify({"error": "Enter Password"}), 411
+
+        if not calorie or not protein or not carbs or not fat:
+            return jsonify({"error": "Enter Information"}), 412
+
         if session.query(User).filter_by(email=email).first():
             return jsonify({"error": "User already exists"}), 400
 
         hashed_password = generate_password_hash(password)
-        user = User(email=email, password=hashed_password)
+        user = User(email=email, password=hashed_password, targetCalorie=calorie, targetProtein=protein, targetCarbs=carbs, targetFat=fat)
         session.add(user)
         session.commit()
         return jsonify({"msg": "User registered successfully"}), 201
@@ -83,14 +91,31 @@ def get_saved_macros():
         email = get_jwt_identity()
         user = session.query(User).filter_by(email=email).first()
         macro = session.query(Macro).filter_by(user_id=user.id).first()
+
+        print("Getting User Info")
+
         if not macro:
-            return jsonify({"error": "No macro data for this user"}), 404
+            return jsonify({
+                "date": str(date.today()),
+                "calorie": 0,
+                "protein": 0,
+                "carbs": 0,
+                "fat": 0,
+                "targetCalorie": user.targetCalorie,
+                "targetProtein": user.targetProtein,
+                "targetCarbs": user.targetCarbs,
+                "targetFat": user.targetFat
+            })
         return jsonify({
             "date": str(macro.date),
             "calorie": macro.calorie,
             "protein": macro.protein,
             "carbs": macro.carbs,
-            "fat": macro.fat
+            "fat": macro.fat,
+            "TargetCalorie": user.targetCalorie,
+            "TargetProtein": user.targetProtein,
+            "TargetCarbs": user.targetCarbs,
+            "TargetFat": user.targetFat
         })
     finally:
         session.close()

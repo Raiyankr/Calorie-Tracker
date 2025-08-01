@@ -2,13 +2,22 @@ import React, { useState, useEffect }  from 'react';
 import './HomePage.css'
 import MacroHistoryChart from './MacroHistoryChart.react'; 
 
-/*import {UpdateCalorie, GetCalorie} from './HomePage.js';*/
-//import { MyComponent } from './HomePage';
 function HomePage({token, logout}) {
-    const totalCalorie = 2248
-    const totalProtein = 180
-    const totalCarbs = 310
-    const totalFat = 65
+    // const localLast = 'http://localhost:5050/api/last-macros'
+    // const localGenerate = 'http://localhost:5050/api/generate'
+
+    const prodLast = 'https://calorie-tracker-xr.up.railway.app/api/last-macros'
+    const prodGenerate = 'https://calorie-tracker-xr.up.railway.app/api/generate'
+
+    var [totalCalorie, setTotalCalorie] = useState(0);
+    var [totalProtein, setTotalProtein] = useState(0);
+    var [totalCarbs, setTotalCarbs] = useState(0);
+    var [totalFat, setTotalFat] = useState(0);
+
+    // const totalCalorie = 2248
+    // const totalProtein = 180
+    // const totalCarbs = 310
+    // const totalFat = 65
 
     var [calorieProgressBar, setCalorieProgressBar] = useState(0);
     var [proteinProgressBar, setProteinProgressBar] = useState(0);
@@ -18,17 +27,13 @@ function HomePage({token, logout}) {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-
         if (!token) {
           console.warn("No token found, user may not be logged in");
-          logout(); // or redirect
+          logout();
           return;
         }
-        
         // Load saved macros on initial load
-        // https://calorie-tracker-xr.up.railway.app/api
-        // fetch('http://localhost:5050/api/last-macros', {
-        fetch('https://calorie-tracker-xr.up.railway.app/api/last-macros', {
+        fetch(prodLast, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -37,16 +42,26 @@ function HomePage({token, logout}) {
           .then(data => {
             if (!data.error) {
                 setMacros(data);
-                setCalorieProgressBar(data.calorie * 100 / totalCalorie);
-                setProteinProgressBar(data.protein * 100 / totalProtein);
-                setCarbsProgressBar(data.carbs * 100 / totalCarbs);
-                setFatProgressBar(data.fat * 100 / totalFat);
+
+                console.log("Fetched User Data")
+                console.log(data.targetCalorie)
+
+                setTotalCalorie(data.targetCalorie);
+                setTotalProtein(data.targetProtein);
+                setTotalCarbs(data.targetCarbs);
+                setTotalFat(data.targetFat);
+
+
+                setCalorieProgressBar(data.calorie === 0 ? 0 : data.calorie * 100 / totalCalorie);
+                setProteinProgressBar(data.protein === 0 ? 0 : data.protein * 100 / totalProtein);
+                setCarbsProgressBar(data.carbs === 0 ? 0 : data.carbs * 100 / totalCarbs);
+                setFatProgressBar(data.fat === 0 ? 0 : data.fat * 100 / totalFat);
             }})
           .catch(err => {
             console.error('Failed to fetch macros', err);
             logout(); 
         });
-      }, [token, logout]);
+      }, [token, logout, totalCalorie, totalProtein, totalCarbs, totalFat]);
 
   
     const handleUpload = async (event) => {
@@ -57,8 +72,7 @@ function HomePage({token, logout}) {
       formData.append('image', file);
   
       try {
-        // const res = await fetch('http://localhost:5050/api/generate', {
-        const res = await fetch('https://calorie-tracker-xr.up.railway.app/api/generate', {
+        const res = await fetch(prodGenerate, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -95,7 +109,7 @@ function HomePage({token, logout}) {
             <div class="header">
                 <div class="upload headerItem">
                     <label for="file" class="btn">+</label>
-                    <input  id="file" type="file" style={{color: 'transparent', display:'none'}} accept="image/*" onChange={handleUpload} />
+                    <input  id="file" type="file" style={{color: 'transparent', display:"none"}} accept="image/*" onChange={handleUpload} />
                 </div>
                 <div class="macro headerItem">
                     <div style={{fontSize:"3em", color:"white"}}> Macro </div>

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import './Login.css'
 
-const Login = ({ setToken }) => {
+const Login = ({ setToken, navigateRegister}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // const res = await fetch('http://localhost:5050/api/login', {
-    const res = await fetch('https://calorie-tracker-xr.up.railway.app/api/login', {
+    // const localLogin = 'http://localhost:5050/api/login'
+    const prodLogin = 'https://calorie-tracker-xr.up.railway.app/api/login'
+
+    const res = await fetch(prodLogin, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -21,27 +23,6 @@ const Login = ({ setToken }) => {
         setToken(data.access_token); // Save token in parent
     } else {
         alert(data.error || 'Login failed');
-    }
-  };
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
-    // const res = await fetch('http://localhost:5050/api/register', {
-    const res = await fetch('https://calorie-tracker-xr.up.railway.app/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-    console.log(data)
-    if (res.ok) {
-        localStorage.setItem("token", data.access_token);
-        setToken(data.access_token); // Save token in parent
-        alert('Register Success');
-    } else {
-        alert(data.error || 'Register failed');
     }
   };
 
@@ -68,7 +49,7 @@ const Login = ({ setToken }) => {
                         class="field"
                     />
                     <button class="submit" type="submit" onClick={handleLogin}>Log In</button>
-                    <button class="register" onClick={handleRegister}>Register</button>
+                    <button class="register" onClick={() => navigateRegister()}>Register</button>
 
                 </div>
                

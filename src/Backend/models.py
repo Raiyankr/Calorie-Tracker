@@ -10,6 +10,11 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
 
+    targetCalorie = Column(Integer, nullable=False)
+    targetProtein = Column(Integer, nullable=False)
+    targetCarbs = Column(Integer, nullable=False)
+    targetFat = Column(Integer, nullable=False)
+
     macros = relationship("Macro", uselist=False, back_populates="user", cascade="all, delete-orphan")
     history = relationship("MacroHistory", back_populates="user", cascade="all, delete-orphan")
 
