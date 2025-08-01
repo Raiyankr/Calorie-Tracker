@@ -18,7 +18,9 @@ function HomePage({token, logout}) {
 
     useEffect(() => {
         // Load saved macros on initial load
-        fetch('http://localhost:5050/api/last-macros', {
+        // https://calorie-tracker-xr.up.railway.app/api
+        // fetch('http://localhost:5050/api/last-macros', {
+        fetch('https://calorie-tracker-xr.up.railway.app/api/last-macros', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -47,7 +49,8 @@ function HomePage({token, logout}) {
       formData.append('image', file);
   
       try {
-        const res = await fetch('http://localhost:5050/api/generate', {
+        // const res = await fetch('http://localhost:5050/api/generate', {
+        const res = await fetch('https://calorie-tracker-xr.up.railway.app/api/generate', {
             headers: {
                 Authorization: `Bearer ${token}`
             },

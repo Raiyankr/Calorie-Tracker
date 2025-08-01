@@ -12,8 +12,6 @@ from models import Base, User, Macro, MacroHistory
 
 load_dotenv()
 
-print("URL IS:", os.getenv("DATABASE_URL"))
-
 # Database setup
 engine = create_engine(os.getenv("DATABASE_URL"))
 SessionLocal = scoped_session(sessionmaker(bind=engine))

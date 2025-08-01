@@ -8,7 +8,8 @@ const Login = ({ setToken }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:5050/api/login', {
+    // const res = await fetch('http://localhost:5050/api/login', {
+    const res = await fetch('https://calorie-tracker-xr.up.railway.app/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -25,7 +26,8 @@ const Login = ({ setToken }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:5050/api/register', {
+    // const res = await fetch('http://localhost:5050/api/register', {
+    const res = await fetch('https://calorie-tracker-xr.up.railway.app/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
