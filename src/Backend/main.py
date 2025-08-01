@@ -91,21 +91,35 @@ def get_saved_macros():
         email = get_jwt_identity()
         user = session.query(User).filter_by(email=email).first()
         macro = session.query(Macro).filter_by(user_id=user.id).first()
+        history = session.query(MacroHistory).filter_by(user_id=user.id).order_by(MacroHistory.date).all()
+        currentDate = date.today()
 
         print("Getting User Info")
 
         if not macro:
-            return jsonify({
-                "date": str(date.today()),
-                "calorie": 0,
-                "protein": 0,
-                "carbs": 0,
-                "fat": 0,
-                "targetCalorie": user.targetCalorie,
-                "targetProtein": user.targetProtein,
-                "targetCarbs": user.targetCarbs,
-                "targetFat": user.targetFat
-            })
+            macro = Macro(user_id=user.id, date=currentDate, calorie=0, protein=0, carbs=0, fat=0)
+            session.add(macro)
+        
+        # Update userHistory if its outdated:
+        if macro.date != currentDate:
+            history_entry = MacroHistory(
+                    user_id=user.id,
+                    date=macro.date,
+                    calorie=macro.calorie,
+                    protein=macro.protein,
+                    carbs=macro.carbs,
+                    fat=macro.fat
+                )
+            session.add(history_entry)
+
+            macro.date = currentDate
+            macro.calorie = 0
+            macro.protein = 0
+            macro.carbs = 0
+            macro.fat = 0
+        
+        session.commit()
+
         return jsonify({
             "date": str(macro.date),
             "calorie": macro.calorie,
