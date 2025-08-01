@@ -21,7 +21,7 @@ Base.metadata.create_all(engine)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "https://calorie-tracker-sage.vercel.app/"]}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "https://calorie-tracker-sage.vercel.app"]}})
 app.config["JWT_SECRET_KEY"] = "1122334455"
 jwt = JWTManager(app)
 
