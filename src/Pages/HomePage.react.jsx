@@ -36,17 +36,15 @@ function HomePage({token, logout}) {
             console.error('Failed to fetch macros', err);
             logout(); 
         });
-      }, [token]);
-    
-    const [loading, setLoading] = useState(false);
+      }, [token, logout]);
+
   
     const handleUpload = async (event) => {
-      const file = event.target.files[0];
+      let file = event.target.files[0];
       if (!file) return;
   
-      const formData = new FormData();
+      let formData = new FormData();
       formData.append('image', file);
-      setLoading(true);
   
       try {
         const res = await fetch('http://localhost:5050/api/generate', {
@@ -75,31 +73,7 @@ function HomePage({token, logout}) {
       } catch (err) {
         console.error('Upload error:', err);
       }
-  
-      setLoading(false);
     };
-
-    const resetMacros = async (event) => {
-        try {
-          const res = await fetch('http://localhost:5050/api/reset-macros', {method: 'GET'});
-          const data = await res.json();
-          window.location.reload(true);
-          if (data.error) {
-              setMacros(null);
-              alert(data.error);
-            } else {
-              setMacros(data);
-              setCalorieProgressBar(data.calorie * 100 / totalCalorie);
-              setProteinProgressBar(data.protein * 100 / totalProtein);
-              setCarbsProgressBar(data.carbs * 100 / totalCarbs);
-              setFatProgressBar(data.fat * 100 / totalFat);
-            }
-        } catch (err) {
-          console.error('Upload error:', err);
-        }
-    
-        setLoading(false);
-      };
 
   return (
     <div class="background">
@@ -141,7 +115,6 @@ function HomePage({token, logout}) {
                     </div>
 
                 </div>
-                
 
                 <div>
                     <button class="logout headerItem" onClick={logout}> Logout </button>

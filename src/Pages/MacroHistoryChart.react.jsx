@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, CartesianGrid, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const MacroHistoryChart = ({ token }) => {
 
