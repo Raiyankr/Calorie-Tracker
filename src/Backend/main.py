@@ -262,7 +262,10 @@ def generate():
 
         session.commit()
         return jsonify({
-            "date": str(currentDate), "calorie": calorie, "protein": protein, "carbs": carbs, "fat": fat
+            "date": str(currentDate), "calorie": calorie, "protein": protein, "carbs": carbs, "fat": fat,             "targetCalorie": user.targetCalorie,
+            "targetProtein": user.targetProtein,
+            "targetCarbs": user.targetCarbs,
+            "targetFat": user.targetFat
         })
     except Exception as e:
         traceback.print_exc()
