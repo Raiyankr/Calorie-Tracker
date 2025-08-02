@@ -5,7 +5,7 @@ import Register from './Register.react';
 
 function LandingPage() {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [register, setRegister] = useState(false);
+  const [register, setRegister] = useState(true);
 
   const saveToken = (token) => {
     localStorage.setItem('token', token);

@@ -35,9 +35,9 @@ const Register = ({ setToken , navigateLogin}) => {
 
   return (
     <div class="background">
-        <div class="form">
+        <div class="registerForm">
             <form className="register-form">
-                <div class="text title">Register</div>
+                <div class="text registerTitle">Register</div>
                 <div class="registerFieldTable">
                     <input
                         type="email"

@@ -112,7 +112,8 @@ form{
 
 @media (max-width: 768px) {
     .login-form{
-        width: 70%;
+        width: 90%;
+        color: transparent;
     }
 
     .loginField{
