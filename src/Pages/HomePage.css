@@ -307,16 +307,19 @@
 
     #macroTitle{
         font-size: 3em;
+        margin-bottom: 1em;
+        margin-top: 1em;
+
     }
 
     .macro-stats{
         width: 100%;
-        margin-bottom: 1em;
+        margin-bottom: 2em;
     }
 
     .macro-chart{
         width: 100%;
-        margin-bottom: 1em;
+        margin-bottom: 2em;
     }
 
     .info{
@@ -331,7 +334,12 @@
         font-size: 0.8em;
     }
 
-    #Fat{
-        
+    .upload{
+        height: 2em;
+        width: 2em;
+    }
+
+    #uploadRow{
+        width: 40%;
     }
 }
