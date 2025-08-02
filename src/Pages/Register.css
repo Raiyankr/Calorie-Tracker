@@ -1,31 +1,41 @@
 .background{
     background: #202027;
-    height: 100%;
-    width: auto;
 }
 
 .form{
     display: flex;
+    flex:auto;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100vw;
 }
 
 .text{
     color: white;
 }
 
-.fieldTable
+.register-form{
+    height: 80%;
+    width: 50%;
+}
+
+.registerFieldTable
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgba(45, 45, 53, 1);
-    padding: 3em;
+    /* padding: 3em; */
     /* padding-left: 10em;
     padding-right: 10em; */
-    border-radius: 2em;
+
+    width: 100%;
+    height: 80%;
+    /* padding-left: 10em;
+    padding-right: 10em; */
+    border-radius: 0 0 2em 2em;
 }
 
 input{
@@ -33,25 +43,44 @@ input{
     margin: 1em;
 }
 
-.field{
+.registerField{
     display: flex;
-    width: 25em;
+    justify-content: center;
+    align-items: center;
+    
     font-size: 1.2em;
     border-radius: 1em;
     border: rgb(0, 0, 0) 2px solid;
+
+    width: 80%;
 }
 
 
 #statBoxInput{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.statBoxRow{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .statfield{
     display: flex;
-    width: 13em;
+    justify-content: center;
+    align-items: center;
+    
     font-size: 1em;
     border-radius: 1em;
     border: rgb(0, 0, 0) 2px solid; 
+
+    width: 80%;
 }
 
 @keyframes fadeIn {
@@ -62,20 +91,25 @@ input{
       opacity: 1;
     }
   }
-/* .login{
+
+  .title{
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(24, 24, 28, 1);
-    padding: 1em;
+    /* padding: 1em; */
     font-size: 2.5em;
     font-weight: bold;
-    border-radius: 2em;
-} */
+
+    border-radius: 2em 2em 0 0 ;
+
+    width: 100%;
+    height: 20%;
+}
 
 .submit{
-    margin-top: 1em;
-    padding: 0.5em;
+    /* margin-top: 1em; */
+    /* padding: 0.5em; */
     width: 90%;
     border-radius: 2em;
     border: black 0.1em solid;
@@ -97,14 +131,41 @@ input{
 
     border: none;
     font-size:1.1em;
-    margin: 1em;
+    /* margin: 1em; */
     transition: background-color 0.3s ease-in-out;
 }
 .register:hover{
-
     color: #5863c8;
 }
 
 form{
     animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+
+@media (max-width: 1024px) {
+    .register-form{
+        width: 70%;
+    }
+
+    #statBoxInput{
+        width: 80%;
+    }
+
+    .statBoxRow{
+        width: 80%;
+    }
+
+    .statfield{
+        width: 70%;
+    }
+
+    .registerField{
+        width: 70%;
+        font-size: 1em;
+    }
+
+    .title{
+        font-size: 2em;
+    }
 }

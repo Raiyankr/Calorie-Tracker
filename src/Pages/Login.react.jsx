@@ -30,15 +30,15 @@ const Login = ({ setToken, navigateRegister}) => {
     <div class="background">
         <div class="form">
             <form className="login-form">
-                <h2 class="text login">Login</h2>
-                <div class="fieldTable">
+                <div class="text login">Log in</div>
+                <div class="loginFieldTable">
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Username"
                         required
-                        class="field"
+                        class="loginField"
                     />
                     <input
                         type="password"
@@ -46,7 +46,7 @@ const Login = ({ setToken, navigateRegister}) => {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
                         required
-                        class="field"
+                        class="loginField"
                     />
                     <button class="submit" type="submit" onClick={handleLogin}>Log In</button>
                     <button class="register" onClick={() => navigateRegister()}>Register</button>

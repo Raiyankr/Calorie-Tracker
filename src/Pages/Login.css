@@ -1,45 +1,56 @@
 .background{
     background: #202027;
-    height: 100%;
-    width: auto;
 }
 
 .form{
     display: flex;
+    flex:auto;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100vw;
+}
+
+.login-form{
+    height: 60%;
+    width: 50%;
 }
 
 .text{
     color: white;
 }
 
-.fieldTable
+.loginFieldTable
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgba(45, 45, 53, 1);
-    padding: 3em;
+    /* padding: 3em; */
+
+    width: 100%;
+    height: 80%;
     /* padding-left: 10em;
     padding-right: 10em; */
-    border-radius: 2em;
+    border-radius: 0 0 2em 2em;
 }
 
 input{
-    padding: 0.8em;
-    margin: 1em;
+    /* padding: 0.8em; */
+    /* margin: 1em; */
 }
 
-.field{
+.loginField{
     display: flex;
-    width: 25em;
+    justify-content: center;
+    align-items: center;
+    
     font-size: 1.2em;
     border-radius: 1em;
     border: rgb(0, 0, 0) 2px solid;
 
+    width: 80%;
     
 }
 
@@ -56,10 +67,14 @@ input{
     justify-content: center;
     align-items: center;
     background-color: rgba(24, 24, 28, 1);
-    padding: 1em;
+    /* padding: 1em; */
     font-size: 2.5em;
     font-weight: bold;
-    border-radius: 2em;
+
+    border-radius: 2em 2em 0 0 ;
+
+    width: 100%;
+    height: 20%;
 }
 
 .submit{
@@ -92,4 +107,20 @@ input{
 
 form{
     animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+
+@media (max-width: 768px) {
+    .login-form{
+        width: 70%;
+    }
+
+    .loginField{
+        width: 70%;
+        font-size: 1em;
+    }
+
+    .login{
+        font-size: 2em;
+    }
 }
