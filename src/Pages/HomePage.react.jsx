@@ -105,14 +105,24 @@ function HomePage({token, logout}) {
         <div className="body">
             {/* <button class="logout headerItem" style={{position: 'relative', top: '80vh', left:'20px'}} onClick={resetMacros}> ø </button> */}
 
-
             <div class="header">
-                <div class="upload headerItem">
-                    <label for="file" class="btn">+</label>
-                    <input  id="file" type="file" style={{color: 'transparent', display:"none"}} accept="image/*" onChange={handleUpload} />
+                <div id="uploadRow">
+                    <div class="upload">
+                        <label for="file" class="btn">+</label>
+                        <input  id="file" type="file" style={{color: 'transparent', display:"none"}} accept="image/*" onChange={handleUpload} />
+                    </div>
                 </div>
-                <div class="macro headerItem">
-                    <div style={{fontSize:"3em", color:"white"}}> Macro </div>
+                <div id="logoutRow">
+                    <button class="logout" onClick={logout}> Logout </button>
+                </div>
+
+                
+            </div>
+
+            <div class="mainBody">
+
+                <div class="macro">
+                    <div id="macroTitle"> Macro </div>
 
                     <div class="macro-bar"> 
                         <div class="macro-stats">
@@ -140,23 +150,20 @@ function HomePage({token, logout}) {
                     </div>
 
                 </div>
-
-                <div>
-                    <button class="logout headerItem" onClick={logout}> Logout </button>
-                </div>
+                
                 
             </div>
 
             <div class="row">
                 <div class="info" id="Calorie">
-                    <div class="title"> Calorie </div>
+                    <div class="homeCategory"> Calorie </div>
                     <div class="progress">
                         <div class="progressBar" style={{width: calorieProgressBar + '%'}}> {Math.round(calorieProgressBar) + '%'}  </div>
                         
                     </div>
                 </div>
                 <div class="info" id="Protein">
-                    <div class="title"> Protein </div>
+                    <div class="homeCategory"> Protein </div>
                     <div class="progress">
                         <div class="progressBar" style={{width: proteinProgressBar + '%'}}> {Math.round(proteinProgressBar) + '%'} </div>
                     </div>
@@ -165,13 +172,13 @@ function HomePage({token, logout}) {
 
             <div class="row">
                 <div class="info" id="Carbs">
-                    <div class="title"> Carbs </div>
+                    <div class="homeCategory"> Carbs </div>
                     <div class="progress">
                         <div class="progressBar" style={{width: carbsProgressBar + '%'}}> {Math.round(carbsProgressBar) + '%'} </div>
                     </div>
                 </div>
                 <div class="info" id="Fat">
-                    <div class="title"> Fat </div>
+                    <div class="homeCategory"> Fat </div>
                     <div class="progress">
                         <div class="progressBar" style={{width: fatProgressBar + '%'}}> {Math.round(fatProgressBar) + '%'} </div>
                     </div>
