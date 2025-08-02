@@ -43,9 +43,6 @@ function HomePage({token, logout}) {
             if (!data.error) {
                 setMacros(data);
 
-                console.log("Fetched User Data")
-                console.log(data.targetCalorie)
-
                 setTotalCalorie(data.targetCalorie);
                 setTotalProtein(data.targetProtein);
                 setTotalCarbs(data.targetCarbs);
@@ -153,37 +150,40 @@ function HomePage({token, logout}) {
                 
                 
             </div>
-
-            <div class="row">
-                <div class="info" id="Calorie">
-                    <div class="homeCategory"> Calorie </div>
-                    <div class="progress">
-                        <div class="progressBar" style={{width: calorieProgressBar + '%'}}> {Math.round(calorieProgressBar) + '%'}  </div>
-                        
+            
+            <div id="rowTable">
+                <div class="row">
+                    <div class="info" id="Calorie">
+                        <div class="homeCategory"> Calorie </div>
+                        <div class="progress">
+                            <div class="progressBar" style={{width: calorieProgressBar + '%'}}> {Math.round(calorieProgressBar) + '%'}  </div>
+                            
+                        </div>
+                    </div>
+                    <div class="info" id="Protein">
+                        <div class="homeCategory"> Protein </div>
+                        <div class="progress">
+                            <div class="progressBar" style={{width: proteinProgressBar + '%'}}> {Math.round(proteinProgressBar) + '%'} </div>
+                        </div>
                     </div>
                 </div>
-                <div class="info" id="Protein">
-                    <div class="homeCategory"> Protein </div>
-                    <div class="progress">
-                        <div class="progressBar" style={{width: proteinProgressBar + '%'}}> {Math.round(proteinProgressBar) + '%'} </div>
+
+                <div class="row">
+                    <div class="info" id="Carbs">
+                        <div class="homeCategory"> Carbs </div>
+                        <div class="progress">
+                            <div class="progressBar" style={{width: carbsProgressBar + '%'}}> {Math.round(carbsProgressBar) + '%'} </div>
+                        </div>
+                    </div>
+                    <div class="info" id="Fat">
+                        <div class="homeCategory"> Fat </div>
+                        <div class="progress">
+                            <div class="progressBar" style={{width: fatProgressBar + '%'}}> {Math.round(fatProgressBar) + '%'} </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="info" id="Carbs">
-                    <div class="homeCategory"> Carbs </div>
-                    <div class="progress">
-                        <div class="progressBar" style={{width: carbsProgressBar + '%'}}> {Math.round(carbsProgressBar) + '%'} </div>
-                    </div>
-                </div>
-                <div class="info" id="Fat">
-                    <div class="homeCategory"> Fat </div>
-                    <div class="progress">
-                        <div class="progressBar" style={{width: fatProgressBar + '%'}}> {Math.round(fatProgressBar) + '%'} </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
   );
