@@ -116,6 +116,8 @@ input{
     border: black 0.1em solid;
     font-size: 1.3em;
     font-weight: bold;
+
+    margin-top: -0.5 em;
     
     color: white;
     background-color: rgba(24, 24, 28, 1);
