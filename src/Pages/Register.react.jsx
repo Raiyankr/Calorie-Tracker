@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Register.css'
 
 const Register = ({ setToken , navigateLogin}) => {
-    // const localRegister = 'http://localhost:5050/api/register'
+    // const localRegister = 'http://localhost:5055/api/register'
     const prodRegister = 'https://calorie-tracker-xr.up.railway.app/api/register'
 
     const [email, setEmail] = useState('');
@@ -16,21 +16,22 @@ const Register = ({ setToken , navigateLogin}) => {
     const handleRegister = async (e) => {
         e.preventDefault();
     
-    const res = await fetch(prodRegister, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, calorie, protein, carbs, fat }),
-    });
+        const res = await fetch(prodRegister, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, calorie, protein, carbs, fat }),
+        });
 
-    const data = await res.json();
-    console.log(data)
-    if (res.ok) {
-        localStorage.setItem("token", data.access_token);
-        setToken(data.access_token); // Save token in parent
-        alert('Register Success');
-    } else {
-        alert(data.error || 'Register failed');
-    }
+        const data = await res.json();
+        console.log(data)
+        if (res.ok) {
+            localStorage.setItem("token", data.access_token);
+            setToken(data.access_token); // Save token in parent
+            alert('Register Success');
+            navigateLogin()
+        } else {
+            alert(data.error || 'Register failed');
+        }
   };
 
   return (
@@ -91,10 +92,8 @@ const Register = ({ setToken , navigateLogin}) => {
                                 required
                             class="statfield"/>
                         </div>
-
                     </div>
 
-                                        
                     <button class="submit" type="submit" onClick={handleRegister}>Register</button>
                     <button class="register" onClick={() => navigateLogin()}>Log in</button>
 

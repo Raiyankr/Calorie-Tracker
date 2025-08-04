@@ -40,13 +40,19 @@ def register():
         carbs = data.get("carbs")
         fat = data.get("fat")
 
+
+        print(calorie, protein, carbs, fat)
+
         if not email:
-            return jsonify({"error": "Enter Email"}), 410
+            return jsonify({"error": "Enter Username"}), 410
         if not password:
             return jsonify({"error": "Enter Password"}), 411
 
         if not calorie or not protein or not carbs or not fat:
             return jsonify({"error": "Enter Information"}), 412
+    
+        if int(calorie) <= 0 or int(protein) <= 0 or int(carbs) <= 0 or int(fat) <= 0:
+            return jsonify({"error": "Enter positive values"}), 413
 
         if session.query(User).filter_by(email=email).first():
             return jsonify({"error": "User already exists"}), 400
@@ -203,8 +209,6 @@ def reset_saved_macros():
 def generate():
     session = SessionLocal()
     try:
-        email = get_jwt_identity()
-        user = session.query(User).filter_by(email=email).first()
         if 'image' not in request.files:
             return jsonify({"error": "No image uploaded"}), 400
 
@@ -244,9 +248,42 @@ def generate():
         protein = float(lines[1])
         carbs = float(lines[2])
         fat = float(lines[3])
+
+        return jsonify({"calorie": calorie, "protein": protein, "carbs": carbs, "fat": fat}), 500
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Server error: {str(e)}"}), 500
+    finally:
+        session.close()
+
+
+
+@app.route('/api/add-macro', methods=['POST'])
+@jwt_required()
+def generatex():
+    session = SessionLocal()
+    try:
+        email = get_jwt_identity()
+        user = session.query(User).filter_by(email=email).first()
+
+        
+
+        r = request.json
+
+        data = r.get('tempMacro')
+
+        print(data)
+
+        calorie = float(data['calorie'])
+        protein = float(data['protein'])
+        carbs = float(data['carbs'])
+        fat = float(data['fat'])
         currentDate = date.today()
 
         macro = session.query(Macro).filter_by(user_id=user.id).first()
+
+        print(macro)
 
         if macro and macro.date == currentDate:
             macro.calorie += calorie
@@ -276,7 +313,8 @@ def generate():
 
         session.commit()
         return jsonify({
-            "date": str(currentDate), "calorie": calorie, "protein": protein, "carbs": carbs, "fat": fat,             "targetCalorie": user.targetCalorie,
+            "date": str(currentDate), "calorie": macro.calorie, "protein": macro.protein, "carbs": macro.carbs, "fat": macro.fat,
+            "targetCalorie": user.targetCalorie,
             "targetProtein": user.targetProtein,
             "targetCarbs": user.targetCarbs,
             "targetFat": user.targetFat
@@ -289,4 +327,4 @@ def generate():
 
 
 if __name__ == '__main__':
-    app.run(port=5050, debug=True)
+    app.run(port=5055, debug=True)

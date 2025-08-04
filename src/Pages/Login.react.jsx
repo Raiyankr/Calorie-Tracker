@@ -8,7 +8,7 @@ const Login = ({ setToken, navigateRegister}) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // const localLogin = 'http://localhost:5050/api/login'
+    // const localLogin = 'http://localhost:5055/api/login'
     const prodLogin = 'https://calorie-tracker-xr.up.railway.app/api/login'
 
     const res = await fetch(prodLogin, {

@@ -121,10 +121,6 @@ input{
     background-color: rgba(24, 24, 28, 1);
     transition: background-color 0.3s ease-in-out;
 }
-.submit:hover{
-    background-color: #58c87d;  
-    color: #ffffff;
-}
 
 .register{
     color: white;
@@ -134,9 +130,6 @@ input{
     font-size:1.1em;
     /* margin: 1em; */
     transition: background-color 0.3s ease-in-out;
-}
-.register:hover{
-    color: #5863c8;
 }
 
 form{
@@ -188,5 +181,16 @@ form{
 
     .registerTitle{
         padding: 0.5em 0 0.5em 0;
+    }
+}
+
+@media (hover:hover) and (pointer: fine){
+    .submit:hover{
+        background-color: #58c87d;  
+        color: #ffffff;
+    }
+
+    .register:hover{
+        color: #5863c8;
     }
 }

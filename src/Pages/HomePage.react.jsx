@@ -3,21 +3,20 @@ import './HomePage.css'
 import MacroHistoryChart from './MacroHistoryChart.react'; 
 
 function HomePage({token, logout}) {
-    // const localLast = 'http://localhost:5050/api/last-macros'
-    // const localGenerate = 'http://localhost:5050/api/generate'
+    // const localLast = 'http://localhost:5055/api/last-macros'
+    // const localGenerate = 'http://localhost:5055/api/generate'
+    // const localAddMacro = 'http://localhost:5055/api/add-macro'
 
     const prodLast = 'https://calorie-tracker-xr.up.railway.app/api/last-macros'
     const prodGenerate = 'https://calorie-tracker-xr.up.railway.app/api/generate'
+    const prodAddMacro = 'https://calorie-tracker-xr.up.railway.app/api/add-macro'
 
     var [totalCalorie, setTotalCalorie] = useState(0);
     var [totalProtein, setTotalProtein] = useState(0);
     var [totalCarbs, setTotalCarbs] = useState(0);
     var [totalFat, setTotalFat] = useState(0);
 
-    // const totalCalorie = 2248
-    // const totalProtein = 180
-    // const totalCarbs = 310
-    // const totalFat = 65
+    const [tempMacro, setTempMacro] = useState(null);
 
     var [calorieProgressBar, setCalorieProgressBar] = useState(0);
     var [proteinProgressBar, setProteinProgressBar] = useState(0);
@@ -40,6 +39,9 @@ function HomePage({token, logout}) {
         })
           .then(res => res.json())
           .then(data => {
+            if ('msg' in data){
+                logout();
+            }
             if (!data.error) {
                 setMacros(data);
 
@@ -48,7 +50,6 @@ function HomePage({token, logout}) {
                 setTotalCarbs(data.targetCarbs);
                 setTotalFat(data.targetFat);
 
-
                 setCalorieProgressBar(data.calorie === 0 ? 0 : data.calorie * 100 / totalCalorie);
                 setProteinProgressBar(data.protein === 0 ? 0 : data.protein * 100 / totalProtein);
                 setCarbsProgressBar(data.carbs === 0 ? 0 : data.carbs * 100 / totalCarbs);
@@ -56,7 +57,6 @@ function HomePage({token, logout}) {
             }})
           .catch(err => {
             console.error('Failed to fetch macros', err);
-            logout(); 
         });
       }, [token, logout, totalCalorie, totalProtein, totalCarbs, totalFat]);
 
@@ -78,16 +78,13 @@ function HomePage({token, logout}) {
         });
   
         const data = await res.json();
-        window.location.reload(true);
+
         if (data.error) {
-            setMacros(null);
+            setTempMacro(null)
             alert(data.error);
           } else {
-            setMacros(data);
-            setCalorieProgressBar(data.calorie * 100 / totalCalorie);
-            setProteinProgressBar(data.protein * 100 / totalProtein);
-            setCarbsProgressBar(data.carbs * 100 / totalCarbs);
-            setFatProgressBar(data.fat * 100 / totalFat);
+            setTempMacro(data)
+            console.log(tempMacro)
             
             formData = null
             file = null
@@ -97,11 +94,59 @@ function HomePage({token, logout}) {
       }
     };
 
+    const addMacro = () => {
+        let formData = new FormData();
+        formData.append('data', tempMacro);
+    
+        fetch(prodAddMacro, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({tempMacro}),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (!data.error) {
+                setTempMacro(null)
+                setMacros(data);
+                setCalorieProgressBar(data.calorie * 100 / totalCalorie);
+                setProteinProgressBar(data.protein * 100 / totalProtein);
+                setCarbsProgressBar(data.carbs * 100 / totalCarbs);
+                setFatProgressBar(data.fat * 100 / totalFat);
+            }})
+          .catch(err => {
+            console.error('Failed to fetch macros', err);
+        });
+      };
+
   return (
     <div class="background">
+
+
+        {tempMacro && (
+            <div className="body">
+                <div id='temp-macro-container'>
+                    <div id='temp-macro-info'>
+                        <div className='temp-macro-info-row'> Calorie: {tempMacro.calorie}</div>
+                        <div className='temp-macro-info-row'> Protein: {tempMacro.protein + 'g'}</div>
+                        <div className='temp-macro-info-row'> Carbs: {tempMacro.carbs + 'g'}</div>
+                        <div className='temp-macro-info-row'> Fat: {tempMacro.fat + 'g'}</div>
+                    </div>
+
+                    <div id='temp-macro-option'>
+                        <div className='temp-macro-option-column' id='cancel' onClick={() => setTempMacro(null)}> Cancel </div>
+                        <div className='temp-macro-option-column' id='add' onClick={addMacro}> Add </div>
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {!tempMacro && (
+
         <div className="body">
             {/* <button class="logout headerItem" style={{position: 'relative', top: '80vh', left:'20px'}} onClick={resetMacros}> ø </button> */}
-
             <div class="header">
                 <div id="uploadRow">
                     <div class="upload">
@@ -112,15 +157,11 @@ function HomePage({token, logout}) {
                 <div id="logoutRow">
                     <button class="logout" onClick={logout}> Logout </button>
                 </div>
-
-                
             </div>
 
             <div class="mainBody">
-
                 <div class="macro">
                     <div id="macroTitle"> Macro </div>
-
                     <div class="macro-bar"> 
                         <div class="macro-stats">
                             {macros && (
@@ -145,10 +186,7 @@ function HomePage({token, logout}) {
                             <MacroHistoryChart token={token}></MacroHistoryChart>    
                         </div>
                     </div>
-
                 </div>
-                
-                
             </div>
             
             <div id="rowTable">
@@ -157,7 +195,6 @@ function HomePage({token, logout}) {
                         <div class="homeCategory"> Calorie </div>
                         <div class="progress">
                             <div class="progressBar" style={{width: calorieProgressBar + '%'}}> {Math.round(calorieProgressBar) + '%'}  </div>
-                            
                         </div>
                     </div>
                     <div class="info" id="Protein">
@@ -183,8 +220,8 @@ function HomePage({token, logout}) {
                     </div>
                 </div>
             </div>
-            
-        </div>
+        </div>)}
+
     </div>
   );
 }

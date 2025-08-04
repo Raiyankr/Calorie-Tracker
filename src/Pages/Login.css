@@ -13,7 +13,7 @@
 
 .login-form{
     height: 60%;
-    width: 50%;
+    width: 40%;
 }
 
 .text{
@@ -90,10 +90,6 @@ input{
     background-color: rgba(24, 24, 28, 1);
     transition: background-color 0.3s ease-in-out;
 }
-.submit:hover{
-    background-color: #58c87d;  
-    color: #ffffff;
-}
 
 .register{
     color: white;
@@ -123,5 +119,15 @@ form{
 
     .login{
         font-size: 2em;
+    }
+}
+
+@media (hover:hover) and (pointer: fine){
+    .submit:hover{
+        background-color: #58c87d;  
+        color: #ffffff;
+    }
+    .register:hover{
+        color: #5863c8;
     }
 }
