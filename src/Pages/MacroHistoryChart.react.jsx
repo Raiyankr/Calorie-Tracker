@@ -3,13 +3,13 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } f
 
 const MacroHistoryChart = ({ token }) => {
 
-  const local = 'http://localhost:5055/api/user-history'
-  //const prod = 'https://calorie-tracker-xr.up.railway.app/api/user-history'
+  // const local = 'http://localhost:5055/api/user-history'
+  const prod = 'https://calorie-tracker-xr.up.railway.app/api/user-history'
 
   const [data, setData] = useState([]);
   useEffect(() => {
     // Load saved macros on initial load
-    fetch(local, {
+    fetch(prod, {
         headers: {
             Authorization: `Bearer ${token}`
         }
